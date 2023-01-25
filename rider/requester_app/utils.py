@@ -1,25 +1,27 @@
-def filter_by_status(attribute, dict_list):
+from typing import List
+
+def filter_by_status(attribute: str, dict_list: List[dict]) -> List[dict]:
     res = []
     for ele in dict_list:
         if ele['status'] == attribute:
             res.append(ele)
     return res
 
-def filter_by_asset_type(attribute, dict_list):
+def filter_by_asset_type(attribute: str, dict_list: List[dict]) -> List[dict]:
     res = []
     for ele in dict_list:
         if ele['asset_type'] == attribute:
             res.append(ele)
     return res
 
-def filter_by_status_asset_type(status, asset_type, dict_list):
+def filter_by_status_asset_type(status: str, asset_type: str, dict_list: List[dict]) -> List[dict]:
     res = []
     for ele in dict_list:
         if ele['asset_type'] == asset_type and ele['status'] == status:
             res.append(ele)
     return res
 
-def filter_by(status, asset_type, dict_list):
+def filter_by(status: str, asset_type: str, dict_list: List[dict]) -> List[dict]:
     if status and not asset_type:
         return filter_by_status(status, dict_list)
     elif asset_type and not status:
@@ -29,8 +31,7 @@ def filter_by(status, asset_type, dict_list):
     else:
         return dict_list
 
-def check_for_application(rider_query_set, applied_rides):
-
+def check_for_application(rider_query_set, applied_rides) -> list:
     applied_list = []
     for ride in applied_rides:
         applied_list.append(ride.rider_id.rider_id)

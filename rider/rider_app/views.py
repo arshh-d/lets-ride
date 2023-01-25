@@ -4,6 +4,9 @@ import json
 from django.http import JsonResponse
 from rider_app.models import Rider
 from datetime import datetime
+from loguru import logger
+import uuid
+
 
 @csrf_exempt
 @require_http_methods(['POST'])
@@ -15,9 +18,13 @@ def create_ride(request):
     travel_medium = payload.get('travel_medium')
     quantity = payload.get('quantity')
 
+    rider_id = uuid.uuid4()
+    logger.info(f"creating new rider: {rider_id}")
+
     datetime_object = datetime.strptime(datetime_str, '%d/%m/%y %H:%M:%S')
     timestamp = datetime_object.timestamp()
-    new_rider = Rider(source=source, destination=destination,datetime=datetime_object,timestamp=timestamp,travel_medium=travel_medium,quantity=quantity)
+    new_rider = Rider(rider_id=rider_id,source=source, destination=destination,datetime=datetime_object,timestamp=timestamp,travel_medium=travel_medium,quantity=quantity)
     new_rider.save()
 
-    return JsonResponse({"status_code": 200})
+    logger.info(f"created new rider: {rider_id}")
+    return JsonResponse({"msg": "ride created with uuid"}, status=200)
