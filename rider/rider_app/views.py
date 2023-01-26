@@ -27,4 +27,4 @@ def create_ride(request):
     new_rider.save()
 
     logger.info(f"created new rider: {rider_id}")
-    return JsonResponse({"msg": "ride created with uuid"}, status=200)
+    return JsonResponse({"msg": "ride created"}, status=200)

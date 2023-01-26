@@ -130,7 +130,7 @@ def get_match(request: HttpRequest, request_id: uuid) -> JsonResponse:
         response = handle_exc(exception)
         logger.error(
             f"Unable to fetch relevant requests for request id: {request_id}, cause: {exception}")
-        return JsonResponse(response)
+        return JsonResponse(response, status=400)
 
     request_quantity = request_data.quantity
     request_source = request_data.source
